@@ -1,0 +1,72 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #333;
+  font-family: sans-serif;
+}
+
+nav ul {
+  padding: 0;
+  list-style: none;
+}
+
+nav li {
+  width: 8em;
+  height: 2em;
+  font-size: 25px;
+  color: orange;
+  border-left: 0.08em solid;
+  position: relative;
+  margin-top: 0.8em;
+  cursor: pointer;
+}
+
+nav li::before,
+nav li::after {
+  content: "";
+  position: absolute;
+  width: inherit;
+  border-left: 0.08em solid;
+  z-index: -1;
+}
+
+nav li::before {
+  height: 80%;
+  top: 10%;
+  left: -0.3em;
+  filter: brightness(0.8);
+}
+
+nav li::after {
+  height: 60%;
+  top: 20%;
+  left: -0.5em;
+  filter: brightness(0.6);
+}
+
+nav li:hover span {
+  transform: translateX(0.15em);
+}
+
+nav li span {
+  position: relative;
+  height: 120%;
+  top: -10%;
+  border: 0.08em solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: capitalize;
+  transform: translateX(-0.65em);
+  background: #333;
+  transition: 0.3s;
+}

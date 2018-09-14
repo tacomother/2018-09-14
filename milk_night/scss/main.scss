@@ -1,0 +1,537 @@
+$port-gore: #181743;
+$di-serria: #d8a04d;
+$mule-fawn: #865729;
+$dallas: #754e27;
+$tussock: #c68d4a;
+$curious-blue: #3895d2;
+$french-pass: #adfbfb;
+$monte-carlo: #73c7af;
+$solitude: #eaf7ff;
+$biscay: #1b2c58;
+$shakespeare: #3d93d0;
+$santas-gray: #9197af;
+$st-tropaz: #25439b;
+$dodger-blue: #306bf5;
+$royal-blue: #306cf1;
+$bright-turquoise: #37e1f8;
+$sky-blue: #49beff;
+$white: #fff;
+
+$font-size: 0.8vw; // Change value to scale
+
+@mixin toppings($size) {
+  color: $dallas;
+  background-color: $mule-fawn;
+  height: $size;
+  width: $size;
+  border-radius: 50%;
+  box-shadow: inset -0.35em 0;
+}
+
+@mixin chatbox($direction: left) {
+  width: 5.25em;
+  height: 2.375em;
+  border-radius: 2.375em;
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -0.375em;
+    height: 0.875em;
+    width: 0.75em;
+    background-color: inherit;
+    #{$direction}: 0.438em;
+
+    @if $direction == left {
+      border-radius: 0 0 1em 0.1em;
+    } @else {
+      border-radius: 0 0 0.1em 1em;
+    }
+  }
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin glass-shape {
+  height: 12.813em;
+  width: 8em;
+  transform: perspective(1em) rotateX(-181deg);
+  border-radius: 1em 1em 0.8em 0.8em;
+
+  // adjust position caused by transform
+  position: relative;
+  bottom: -0.688em;
+}
+
+@mixin circle($size) {
+  width: $size;
+  height: $size;
+  border-radius: 50%;
+}
+
+@mixin star($size) {
+  height: $size;
+  width: $size;
+  position: absolute;
+
+  &::after,
+  &::before {
+    content: "";
+    position: absolute;
+    border-radius: $size;
+    background-color: currentColor;
+  }
+
+  &::after {
+    top: 50%;
+    transform: translateY(-50%);
+    height: 29.2%;
+    width: 100%;
+  }
+
+  &::before {
+    left: 50%;
+    transform: translateX(-50%);
+    width: 29.2%;
+    height: 100%;
+  }
+}
+
+body {
+  display: grid;
+  height: 100vh;
+  margin: 0;
+  align-items: center;
+  justify-content: center;
+  background-color: $port-gore;
+}
+
+.container {
+  font-size: $font-size;
+  width: 22.938em;
+  height: 21.125em;
+
+  display: grid;
+  grid-template-columns: 6.5em auto;
+  align-items: end;
+
+  .cookies,
+  .glass,
+  .chat,
+  .background {
+    grid-row: 1;
+  }
+
+  .cookies {
+    grid-column: 1;
+  }
+
+  .glass {
+    grid-column: 2;
+  }
+
+  .chat {
+    grid-column: 3;
+  }
+
+  .background {
+    grid-column: 1 / 4;
+  }
+}
+
+.cookies {
+  height: 8.313em;
+  width: 8.813em;
+  position: relative;
+}
+
+.cookie {
+  color: $di-serria;
+  position: absolute;
+  background-color: currentColor;
+}
+
+.cookie--isStanding {
+  right: 0;
+  @include circle(8.25em);
+
+  // textures
+  &::after {
+    content: "";
+    position: absolute;
+    left: 2.813em;
+    top: -0.125em;
+    @include circle(2em);
+    background-color: inherit;
+    box-shadow: -0.688em -0.5em 0 -0.5em, -1.375em 0.063em 0 -0.3em,
+      -3.313em 3.188em 0 -0.3em, -3.375em 3.813em 0 -0.5em;
+  }
+}
+
+.cookie__topping {
+  --size: 1em;
+  position: absolute;
+  @include toppings(var(--size));
+  z-index: 1;
+
+  &:nth-child(1) {
+    top: 2.25em;
+  }
+
+  &:nth-child(2) {
+    top: 1.25em;
+    left: 1.625em;
+  }
+
+  &:nth-child(3) {
+    top: 3em;
+    right: 1.875em;
+  }
+
+  &:nth-child(4) {
+    bottom: 2.125em;
+    right: 3.438em;
+  }
+
+  &:nth-child(5) {
+    --size: 1.25em;
+    bottom: 2.813em;
+    left: 1em;
+  }
+
+  &:nth-child(6) {
+    --size: 0.813em;
+    top: 1.688em;
+    right: 2.813em;
+  }
+
+  &:nth-child(3),
+  &:nth-child(6) {
+    background: currentColor;
+  }
+}
+
+.cookie_shadows {
+  position: absolute;
+  @include circle(100%);
+  overflow: hidden;
+
+  // vertical
+  &::after {
+    @include glass-shape;
+    right: -5em;
+    background: darken($tussock, 2);
+  }
+
+  // horizontal
+  &::before {
+    bottom: 0;
+    width: 100%;
+    height: 1.625em;
+    background: $tussock;
+  }
+
+  &::after,
+  &::before {
+    content: "";
+    position: absolute;
+  }
+}
+
+.cookie--isLying {
+  bottom: 0;
+  width: 100%;
+  height: 1.25em;
+  border-radius: 2em 2em 0.5em 0.5em;
+  overflow: hidden;
+
+  // topping
+  &::after {
+    left: 2em;
+    top: 0.625em;
+    @include toppings(1em);
+  }
+
+  // shadow
+  &::before {
+    right: -5.313em;
+    @include glass-shape;
+    background: lighten($mule-fawn, 10);
+  }
+
+  &::after,
+  &::before {
+    content: "";
+    position: absolute;
+  }
+}
+
+.glass {
+  @include glass-shape;
+  padding: 1em;
+  box-sizing: border-box;
+  background: linear-gradient(
+    -140deg,
+    rgba($curious-blue, 0.9),
+    rgba($monte-carlo, 0.6),
+    transparent
+  );
+  z-index: 1;
+}
+
+.glass__milk {
+  width: 100%;
+  height: 90%;
+  background: $white;
+  border-radius: 1em 1em 0.3em 0.3em;
+  position: relative;
+  overflow: hidden;
+
+  // shiny
+  &::after,
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0.5em;
+    background: linear-gradient($solitude, $french-pass);
+  }
+
+  &::after {
+    @include circle(0.813em);
+    bottom: 0.5em;
+  }
+
+  &::before {
+    width: 0.813em;
+    height: 3.25em;
+    border-radius: 0.813em;
+    bottom: 1.5em;
+  }
+}
+
+.glass__milkShadow {
+  position: absolute;
+  right: 0;
+  height: 100%;
+  width: 2.25em;
+  background: linear-gradient($solitude, $french-pass, transparent);
+
+  // outset border-radius
+  &::after {
+    content: "";
+    position: absolute;
+    left: -1em;
+    @include circle(1em);
+    box-shadow: 0.5em -0.5em $solitude;
+  }
+}
+
+.chat {
+  height: 12.125em;
+  width: 8.375em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chat_box {
+  margin-bottom: 1em;
+
+  &:nth-child(1),
+  &:nth-child(3) {
+    @include chatbox;
+  }
+
+  &:nth-child(1) {
+    background: linear-gradient(transparent, $biscay 80%);
+
+    &::after {
+      background: $biscay;
+    }
+  }
+
+  &:nth-child(2) {
+    @include chatbox(right);
+    background: white;
+  }
+
+  &:nth-child(3) {
+    margin-bottom: 0;
+    background: $shakespeare;
+  }
+}
+
+.chat_boxDot {
+  @include circle(0.688em);
+  display: block;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: $white;
+  background: currentColor;
+  box-shadow: 1em 0, -1em 0;
+}
+
+.phone {
+  @include flex-center;
+  margin-top: auto;
+  width: 100%;
+  height: 1.25em;
+  border-radius: 1.25em;
+  background: $solitude;
+
+  // usb
+  &::after {
+    content: "";
+    width: 1.5em;
+    height: 0.375em;
+    border-radius: 0.375em;
+    background: $santas-gray;
+  }
+}
+
+.background {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.background__stars {
+  left: 6.938em;
+  color: $st-tropaz;
+  @include star(1.5em);
+
+  &:not(.background__stars--isSingle) {
+    &::after,
+    &::before {
+      box-shadow: 7.875em, 2.25em;
+    }
+  }
+}
+
+.background__stars--isSmall {
+  @include star(1em);
+  left: 12.563em;
+  top: 3.938em;
+  color: $sky-blue;
+}
+
+.background__dots {
+  @include circle(0.3em);
+  position: absolute;
+  background-color: currentColor;
+
+  &:not(:nth-of-type(2)) {
+    box-shadow: 0 0 1em 0.1em;
+  }
+
+  &:nth-of-type(1),
+  &:nth-of-type(3) {
+    color: $white;
+  }
+
+  &:nth-of-type(2),
+  &:nth-of-type(4) {
+    color: $bright-turquoise;
+  }
+
+  &:nth-of-type(2)::after,
+  &:nth-of-type(3)::after {
+    box-shadow: 0 0 1em 0.2em;
+  }
+
+  &::after {
+    --size: 0.5em;
+  }
+
+  &::after,
+  &::before {
+    content: "";
+    @include circle(var(--size));
+    display: block;
+    position: relative;
+    background-color: currentColor;
+  }
+}
+
+.background__dots:nth-of-type(1) {
+  bottom: 10.125em;
+  left: 0.875em;
+
+  &::before {
+    --size: 50%;
+    color: $sky-blue;
+    top: -0.375em;
+    left: 2.938em;
+  }
+
+  &::after {
+    color: $dodger-blue;
+    top: -1.813em;
+    left: 2em;
+  }
+}
+
+.background__dots:nth-of-type(2) {
+  top: 5.563em;
+  left: 0.875em;
+
+  &::after,
+  &::before {
+    color: $royal-blue;
+  }
+
+  &::before {
+    --size: 0.4em;
+    top: -3em;
+    left: 2.375em;
+  }
+
+  &::after {
+    top: -1.625em;
+    left: 7.438em;
+  }
+}
+
+.background__dots:nth-of-type(3) {
+  top: 0.75em;
+  right: 7.438em;
+
+  &::before {
+    --size: 0.4em;
+    color: $biscay;
+    bottom: -3.063em;
+    right: -4.25em;
+  }
+
+  &::after {
+    color: $bright-turquoise;
+    bottom: -4.813em;
+    right: -5.563em;
+  }
+}
+
+.background__dots:nth-of-type(4) {
+  top: 7.375em;
+  right: 5.063em;
+
+  &::before {
+    @include circle(0.4em);
+    color: $biscay;
+    bottom: -4.875em;
+    left: -1.813em;
+  }
+
+  &::after {
+    @include circle(0.1em);
+    color: $white;
+    bottom: -7em;
+    right: -4.875em;
+  }
+}
